@@ -34,12 +34,9 @@ define([], function(){
         $tag = document.getElementById("js-tagcloud");
         $aboutme = document.getElementById("js-aboutme");
         $friends = document.getElementById("js-friends");
-        function menuList(name) {
-            return $("link.menu-list").attr(name);
-        };
-        var tagStr = $tag?'<span class="viewer-title">'+ menuList("tags") + '</span><div class="viewer-div tagcloud" id="js-mobile-tagcloud"></div>':"";
-        var friendsStr = $friends?'<span class="viewer-title">'+ menuList("friends") + '</span><div class="viewer-div friends" id="js-mobile-friends"></div>':"";
-        var aboutmeStr = $aboutme?'<span class="viewer-title">'+ menuList("about") + '</span><div class="viewer-div aboutme" id="js-mobile-aboutme"></div>':"";
+        var tagStr = $tag?'<span class="viewer-title">标签</span><div class="viewer-div tagcloud" id="js-mobile-tagcloud"></div>':"";
+        var friendsStr = $friends?'<span class="viewer-title">友情链接</span><div class="viewer-div friends" id="js-mobile-friends"></div>':"";
+        var aboutmeStr = $aboutme?'<span class="viewer-title">关于我</span><div class="viewer-div aboutme" id="js-mobile-aboutme"></div>':"";
 
         $viewer.innerHTML = '<div id="viewer-box">\
         <div class="viewer-box-l">\
@@ -134,11 +131,12 @@ define([], function(){
 
     var resetTags = function(){
         var tags = $(".tagcloud a");
-        for(var i = 0; i < tags.length; i++){
-            var num = parseInt(4*Math.random()) + 1;
-            tags.eq(i).addClass("color" + num);
-        };
-        $(".article-category a:nth-child(-n+2)").attr("class", "color5");
+        tags.css({"font-size": "12px"});
+        for(var i=0,len=tags.length; i<len; i++){
+            var num = tags.eq(i).html().length % 5 +1;
+            tags[i].className = "";
+            tags.eq(i).addClass("color"+num);
+        }
     }
 
     return{
